@@ -31,7 +31,6 @@ function App() {
       setLoading(true);
       const data = await fetchData(strFilter, page);
       if (data.results.length > 0) {
-        console.log(data.results);
         setItems(prevItems => [...prevItems, ...data.results]);
         setCurrPage(page);
         setHasMorePages(page >= data.total_pages ? false : true);

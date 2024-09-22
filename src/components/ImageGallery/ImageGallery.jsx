@@ -7,7 +7,6 @@ const ImageGallery = ({ images, openModal }) => {
     const clickedCard = event.target.closest('li');
     if (clickedCard) {
       const imageId = clickedCard.dataset.imageid;
-      console.log('key', imageId);
       const clickedImageObj = images.find(image => image.id === imageId);
       if (clickedImageObj) {
         openModal(clickedImageObj);

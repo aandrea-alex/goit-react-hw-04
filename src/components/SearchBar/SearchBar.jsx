@@ -1,8 +1,8 @@
 import { Toaster } from 'react-hot-toast';
 import { HiOutlineSearch } from 'react-icons/hi';
 
-import { errNotify } from '../../../../../../../Downloads/goit-react-hw-04-main/src/jsx/notifications/error-notify';
-import { ERR_EMPTY_SEARCH } from '../../../../../../../Downloads/goit-react-hw-04-main/src/jsx/notifications/constants';
+import { errNotify } from '../../notifications/error-notify';
+import { ERR_EMPTY_SEARCH } from '../../notifications/constants';
 
 import styles from './SearchBar.module.css';
 
@@ -10,9 +10,7 @@ const SearchBar = ({ onSearch }) => {
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.target;
-    console.log(form);
     const searchStr = form.elements.search.value;
-    console.log('searchStr', searchStr);
     if (searchStr.trim() === '') {
       errNotify(ERR_EMPTY_SEARCH);
       return;
