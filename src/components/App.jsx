@@ -4,6 +4,7 @@ import styles from './App.module.css';
 import { useState } from 'react';
 import { fetchData } from '../api/fetchData';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
+import ImageGallery from './ImageGallery/ImageGallery';
 import clsx from 'clsx';
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
     <SearchBar onSearch={handleSearch} />
     <div className={clsx(styles.content, styles.section)}>
       <ErrorMessage isError={error} />
+      <ImageGallery images={items} />
     </div>
     </div>
   );
