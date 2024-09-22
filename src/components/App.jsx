@@ -1,12 +1,15 @@
 import SearchBar from './SearchBar/SearchBar';
 import styles from './App.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Modal from 'react-modal';
 import { fetchData } from '../api/fetchData';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
 import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn';
+import ImageModal from './ImageModal/ImageModal';
 import clsx from 'clsx';
+
 function App() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -14,6 +17,13 @@ function App() {
   const [currPage, setCurrPage] = useState(0);
   const [hasMorePages, setHasMorePages] = useState(false);
   const [filter, setFilter] = useState('');
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  useEffect(() => {
+    Modal.setAppElement('#rootModal');
+  }, []);
 
   const updateImages = async (strFilter, page) => {
     try {
@@ -48,18 +58,32 @@ function App() {
 
   const handleMore = () => updateImages(filter, currPage + 1);
 
+  const openModal = image => {
+    setSelectedImage(image);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   return (
     <div className={styles.container}>
       <SearchBar onSearch={handleSearch} />
       <div className={clsx(styles.content, styles.section)}>
         <ErrorMessage isError={error} />
-        <ImageGallery images={items} />
+        <ImageGallery images={items} openModal={openModal} />
         <Loader isLoading={loading} />
         <LoadMoreBtn
           isVisible={hasMorePages && !loading}
           onClick={handleMore}
         ></LoadMoreBtn>
       </div>
+      <ImageModal
+        isOpen={modalIsOpen}
+        image={selectedImage}
+        onCloseClick={closeModal}
+      />
     </div>
   );
 }
