@@ -8,9 +8,10 @@ const ImageModal = ({ isOpen, image, onCloseClick }) => {
     <React.Fragment>
       <Modal
         isOpen={isOpen}
-        onRequestClose={onCloseClick}
+        onRequestClose={onCloseClick}       
         overlayClassName={styles.backdrop}
         className={styles.modal}
+        shouldCloseOnOverlayClick={true}
       >
         <div className={styles.modalcontainer}>
           <button className={styles.closeButton} onClick={onCloseClick}>
