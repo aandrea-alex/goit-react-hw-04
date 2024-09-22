@@ -1,10 +1,11 @@
+import React from 'react';
 import Modal from 'react-modal';
 import { RxExit } from 'react-icons/rx';
 import styles from './ImageModal.module.css';
 
 const ImageModal = ({ isOpen, image, onCloseClick }) => {
   return (
-    <>
+    <React.Fragment>
       <Modal
         isOpen={isOpen}
         onRequestClose={onCloseClick}
@@ -30,7 +31,7 @@ const ImageModal = ({ isOpen, image, onCloseClick }) => {
           )}
         </div>
       </Modal>
-    </>
+    </React.Fragment>
   );
 };
 
