@@ -1,12 +1,12 @@
-
 import SearchBar from './SearchBar/SearchBar';
 import styles from './App.module.css';
 import { useState } from 'react';
 import { fetchData } from '../api/fetchData';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Loader from './Loader/Loader';
+import LoadMoreBtn from './LoadMoreBtn/LoadMoreBtn';
 import clsx from 'clsx';
-
 function App() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -46,16 +46,22 @@ function App() {
     updateImages(strFilter, 1);
   };
 
+  const handleMore = () => updateImages(filter, currPage + 1);
+
   return (
     <div className={styles.container}>
-    <SearchBar onSearch={handleSearch} />
-    <div className={clsx(styles.content, styles.section)}>
-      <ErrorMessage isError={error} />
-      <ImageGallery images={items} />
-    </div>
+      <SearchBar onSearch={handleSearch} />
+      <div className={clsx(styles.content, styles.section)}>
+        <ErrorMessage isError={error} />
+        <ImageGallery images={items} />
+        <Loader isLoading={loading} />
+        <LoadMoreBtn
+          isVisible={hasMorePages && !loading}
+          onClick={handleMore}
+        ></LoadMoreBtn>
+      </div>
     </div>
   );
 }
-
 
 export default App;
